@@ -1,0 +1,12 @@
+= MyDoc v0.1 webrtc chat
+# mydoc-webrtc-chat
+
+This repository contains docker image and sources to be installed for webrtc secure video chat.
+
+You need a running instance of OpenShift v3 to run this examples.
+
+You can create everything as cluster-admin with:
+
+----
+oc create -f https://github.com/vladavilov/mydoc-webrtc-chat/master/basic-springboot-maven/spring-boot-image-in-v3.json
+----

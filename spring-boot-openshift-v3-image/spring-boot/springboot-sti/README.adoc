@@ -1,0 +1,34 @@
+== OpenShift S2I Builder for Spring Boot
+This Source-to-Image Builder let's you create projects targetting Spring Boot and built with:
+
+* maven
+
+== ENV Options
+
+* *BUILDER_ARGS*: Allows you to specify options to pass to maven
+
+
+== Defaults
+If you do not specify any BUILDER_ARGS, by default the s2i image will use the following:
+
+* Maven
+
+----
+BUILDER_ARGS="package -Popenshift -DskipTests -Dcom.redhat.xpaas.repo.redhatga"
+----
+
+== Test in OpenShift
+
+* First load all the needed resources in a project.
+
+----
+oc create -f https://github.com/vladavilov/mydoc-webrtc-chat/master/spring-boot/springboot-sti/springboot-sti-all.json
+----
+
+* Once the builder springboot-sti has finished building, you can create an app with:
+
+** Instant app already provided as template
+** Using the springboot-sti builder image using a regular Git repository
+
+== Samples
+There is a lot of example SpringBoot applications https://github.com/spring-projects/spring-boot/tree/master/spring-boot-samples[here]

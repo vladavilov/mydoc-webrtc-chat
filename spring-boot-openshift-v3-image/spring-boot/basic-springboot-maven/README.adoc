@@ -1,0 +1,9 @@
+== Sample Spring Boot Hellowrold
+
+This sample application is a draft for spring boot app
+
+It can be built using maven:
+
+----
+mvn package
+----

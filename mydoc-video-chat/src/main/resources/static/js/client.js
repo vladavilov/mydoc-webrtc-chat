@@ -1,11 +1,4 @@
-var loginPage = document.querySelector('#loginPage'),
-    usernameInput = document.querySelector('#usernameInput'),
-    loginBtn = document.querySelector('#loginBtn'),
-    callPage = document.querySelector('#callPage'),
-    callToUsernameInput = document.querySelector('#callToUsernameInput'),
-    callBtn = document.querySelector('#callBtn'),
-    hangUpBtn = document.querySelector('#hangUpBtn'),
-    msgInput = document.querySelector('#msgInput'),
+var msgInput = document.querySelector('#msgInput'),
     sendMsgBtn = document.querySelector('#sendMsgBtn'),
     startVideoButton = document.querySelector('#startVideo'),
     videoContainer = document.querySelector('#video'),
@@ -14,8 +7,8 @@ var loginPage = document.querySelector('#loginPage'),
 
     handlers = {
         handleLogin: function () {
-            loginPage.style.display = "none";
-            callPage.style.display = "block";
+            // TODO: implement red and green indicator
+            webRtcConnector.initCommunicationWith(peerUser);
         },
         handleOffer: function (offer, name) {
             peerUser = name;
@@ -28,8 +21,6 @@ var loginPage = document.querySelector('#loginPage'),
             webRtcConnector.acceptIceCandidate(candidate);
         },
         handleLeave: function () {
-            peerUser = null;
-            currentUser = null;
             webRtcConnector.closeConnection();
         },
         handleError: function (err) {
@@ -39,30 +30,16 @@ var loginPage = document.querySelector('#loginPage'),
 
     socketConnection = new WebSocketConnection('ws://localhost:8080/signal', handlers),
     webRtcConnector = new WebRTCConnector(socketConnection, videoContainer, chatArea),
-    currentUser, peerUser;
+    currentUser = currentLink,
+    peerUser = peerLink;
 
-callPage.style.display = "none";
+socketConnection.sendLogin(currentUser);
 
-loginBtn.addEventListener("click", function () {
-    currentUser = usernameInput.value;
-
-    if (currentUser.length > 0) {
-        socketConnection.sendLogin(currentUser);
-    }
-});
-
-callBtn.addEventListener("click", function () {
-    peerUser = callToUsernameInput.value;
-
-    if (peerUser.length > 0) {
-        webRtcConnector.initCommunicationWith(peerUser)
-    }
-});
-
-hangUpBtn.addEventListener("click", function () {
-    socketConnection.sendLeave(currentUser);
-    handlers.handleLeave();
-});
+// TODO: implement leaving logic
+// hangUpBtn.addEventListener("click", function () {
+//     socketConnection.sendLeave(currentUser);
+//     handlers.handleLeave();
+// });
 
 sendMsgBtn.addEventListener("click", function () {
     var val = msgInput.value;

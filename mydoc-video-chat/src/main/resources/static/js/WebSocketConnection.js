@@ -31,7 +31,7 @@ function WebSocketConnection(url, handlers) {
     connection.onerror = handlers.handleError;
 
     return {
-        sendLogin: function (currentUser) {
+        sendLogin: function (currentUser, roomId) {
             send({
                 type: "login",
                 destination: currentUser

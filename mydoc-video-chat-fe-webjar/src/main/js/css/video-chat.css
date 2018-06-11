@@ -1,0 +1,17 @@
+.chat {
+    background: #eee;
+    margin: 0 auto;
+    border: 5px solid tomato;
+    padding: 5% 0;
+}
+
+.chat-messages-panel {
+    width: 400px;
+    margin: 1em;
+    border: 1px solid black;
+    padding: 1em;
+}
+
+.chat-message {
+    padding: 1em;
+}

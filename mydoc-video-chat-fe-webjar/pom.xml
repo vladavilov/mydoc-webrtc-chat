@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>mydoc-video-chat-fe-webjar</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <parent>
+        <groupId>com.web.video.chat</groupId>
+        <artifactId>mydoc-video-chat</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <properties>
+        <frontend-maven-plugin.nodeVersion>v8.9.4</frontend-maven-plugin.nodeVersion>
+        <frontend-maven-plugin.npmVersion>5.6.0</frontend-maven-plugin.npmVersion>
+        <frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
+
+        <node.binaries.path>
+            http://repo.she.pwj.com:8080/artifactory/libs-3rd-party-local/nodejs/org/dist/
+        </node.binaries.path>
+
+        <frontend-maven-plugin.workingDirectory>src/main</frontend-maven-plugin.workingDirectory>
+        <frontend-maven-plugin.installDirectory>target</frontend-maven-plugin.installDirectory>
+    </properties>
+
+    <dependencies>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>${frontend-maven-plugin.version}</version>
+                <configuration>
+                    <workingDirectory>${frontend-maven-plugin.workingDirectory}</workingDirectory>
+                    <installDirectory>${frontend-maven-plugin.installDirectory}</installDirectory>
+                    <!--<nodeDownloadRoot>${node.binaries.path}</nodeDownloadRoot>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>install node and npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <configuration>
+                            <nodeVersion>${frontend-maven-plugin.nodeVersion}</nodeVersion>
+                            <npmVersion>${frontend-maven-plugin.npmVersion}</npmVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <!--<arguments>install no-save registry-->
+                                <!--http://cft-nexus.ldn.swissbank.com:8081/nexus/content/groups/npm/-->
+                            <!--</arguments>-->
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm build</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run start</arguments>
+                        </configuration>
+                        <phase>generate-resources</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>
